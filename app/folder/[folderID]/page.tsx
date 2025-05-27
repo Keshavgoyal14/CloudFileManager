@@ -48,9 +48,10 @@ const { setparentFolderId } = context;
             const querySnapshot = await getDocs(q);
         
             console.log(querySnapshot)
-            querySnapshot.forEach((doc) => {
-                setFolders((prev) => [...prev, { id: doc.id, ...doc.data() }]);
-            });   
+       querySnapshot.forEach((doc) => {
+  const data = doc.data() as FolderType;
+  setFolders((prev) => [...prev, { ...data, id: doc.id }]);
+});
         }
     }
     useEffect(() => {
@@ -74,8 +75,9 @@ const { setparentFolderId } = context;
             const querySnapshot = await getDocs(q);
             console.log("file", querySnapshot);
             querySnapshot.forEach((doc) => {
-                setFiles((prev) => [...prev, { id: doc.id, ...doc.data() }]);
-            });
+  const data = doc.data() as FileType;
+  setFiles((prev) => [...prev, { ...data, id: doc.id }]);
+});
         }
        
     }
