@@ -18,7 +18,13 @@ function FolderId() {
     const [isfolders, setFolders] = useState([])
     const { data: session } = useSession();
     const searchParams = useSearchParams();
-    const { setparentFolderId} = useContext(ParentFolderContext)
+    const context = useContext(ParentFolderContext);
+
+if (!context) {
+  throw new Error("useContext must be used within a ParentFolderProvider");
+}
+
+const { setparentFolderId } = context;
     const foldername = searchParams.get('folder');
     const handleFetchFolders = async () => {
        
