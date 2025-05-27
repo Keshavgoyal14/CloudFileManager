@@ -14,7 +14,7 @@ type FileType = {
 export default function MyFiles() {
   const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
-    const [files, setFiles] = useState<Array<FileType>>([]);
+  const [files, setFiles] = useState<Array<FileType>>([]);
 const [search,setsearch]=useState("")
   const fetchFiles = async () => {
     setLoading(true);
@@ -28,8 +28,13 @@ const [search,setsearch]=useState("")
       const querySnapshot = await getDocs(q);
       const userFiles: FileType[] = [];
       querySnapshot.forEach((doc) => {
-        userFiles.push({ id: doc.id, ...doc.data() });
-      });
+  const data = doc.data();
+  userFiles.push({
+    id: doc.id,
+    Filename: data.Filename ?? "Untitled",
+    ...data,
+  });
+});
       setFiles(userFiles);
     }
     setLoading(false);
