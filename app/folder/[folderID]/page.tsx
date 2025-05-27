@@ -11,11 +11,22 @@ import Fileitem from "../../../component/Fileitem";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+
+type FolderType = {
+  id: string;
+  [key: string]: any;
+};
+
+type FileType = {
+  id: string;
+  [key: string]: any;
+};
+
 function FolderId() {
   const router =useRouter()
     const { folderID } = useParams();
-    const [files, setFiles] = useState([])
-    const [isfolders, setFolders] = useState([])
+   const [files, setFiles] = useState<FileType[]>([]);
+  const [isfolders, setFolders] = useState<FolderType[]>([]);
     const { data: session } = useSession();
     const searchParams = useSearchParams();
     const context = useContext(ParentFolderContext);
@@ -46,14 +57,18 @@ const { setparentFolderId } = context;
         handleFetchFolders();
     }, [session])
 
-    useEffect(() => {
-        setparentFolderId(folderID)
-    }, [folderID])
+  useEffect(() => {
+  if (typeof folderID === "string") {
+    setparentFolderId(folderID);
+  } else {
+    setparentFolderId(undefined);
+  }
+}, [folderID]);
 
     const handleFetchFiles = async () => {
      
         setFiles([]);
-        if (session?.user.email) {
+        if (session?.user?.email) {
             const q = query(collection(db, "Files"), where("Email", "==", session?.user.email), where("parentFolderId", "==", folderID));
 
             const querySnapshot = await getDocs(q);
@@ -65,7 +80,11 @@ const { setparentFolderId } = context;
        
     }
     useEffect(() => {
-        setparentFolderId(folderID);
+         if (typeof folderID === "string") {
+    setparentFolderId(folderID);
+  } else {
+    setparentFolderId(undefined);
+  }
         handleFetchFiles();
     }, [session])
 
