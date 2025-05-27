@@ -14,7 +14,7 @@ type FileType = {
 export default function MyFiles() {
   const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
-  const [files, setFiles] = useState<FileType[]>([]);
+    const [files, setFiles] = useState<Array<FileType>>([]);
 const [search,setsearch]=useState("")
   const fetchFiles = async () => {
     setLoading(true);
