@@ -105,6 +105,7 @@ await fetch("/api/delete-folder-uploadthing", {
 toast.success("Folder Deleted Sucessfully")
 router.back();
 }
+const filteredFiles = files.filter(file => file.Filename.toLowerCase().includes(search.toLowerCase()));
     return (
         <div>
             <Searchbar setsearch={setsearch}/>
@@ -120,7 +121,7 @@ router.back();
                     )
                 })}</div>
             </div>
-               <Fileitem files ={files} setFiles={setFiles} isTrash={true}/>
+               <Fileitem files ={filteredFiles} setFiles={setFiles} isTrash={true}/>
         </div>)
 }
 
