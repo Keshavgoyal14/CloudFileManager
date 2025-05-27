@@ -1,7 +1,6 @@
 "use client";
-import { useRef, useContext } from "react";
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+import { useContext } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { db } from "../firebaseConfig";
 import { UploadButton } from "../app/uploadingthing";
 import { doc, setDoc } from "firebase/firestore";
@@ -9,9 +8,8 @@ import { toast } from "sonner";
 import { ParentFolderContext } from "./context/ParentFolderContext";
 import { useSession } from "next-auth/react";
 export const Fileupload = ({ openFile, setOpenFile }) => {
-  const fileInputRef = useRef();
   const { data: session } = useSession();
-  const { parentFolderId, setparentFolderId } = useContext(ParentFolderContext);
+  const { parentFolderId} = useContext(ParentFolderContext);
  const formattedDate = new Date().toLocaleString("en-US", {
   year: "numeric",
   month: "long",
