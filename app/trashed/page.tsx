@@ -4,10 +4,16 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { useSession } from 'next-auth/react';
 import Fileitem from "../../component/Fileitem";
 import { db } from '../../firebaseConfig';
+
+type FileType = {
+  id: string;
+  Filename: string;
+};
+
 function Trashed() {
   const { data: session } = useSession();
 const [loading, setLoading] = useState(false);
-const [files, setFiles] = useState([]);
+const [files, setFiles] = useState<FileType[]>([]);
    
 const handletrashed=async()=>{
     setLoading(true);
@@ -18,7 +24,8 @@ const q = query(collection(db, "Files"), where("Email", "==", session?.user.emai
 const querySnapshot =await getDocs(q);
 console.log("file",querySnapshot);
 querySnapshot.forEach((doc) => {
- setFiles((prev) => [...prev, { id: doc.id, ...doc.data() }]);
+  const data = doc.data() as FileType;
+  setFiles((prev) => [...prev, { ...data, id: doc.id }]);
 });}
 setLoading(false);
 }
