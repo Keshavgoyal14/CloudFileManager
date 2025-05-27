@@ -8,7 +8,7 @@ import { db } from "../../firebaseConfig";
 
 type FileType = {
   id: string;
-  [key: string]: any;
+ Filename: string;
 };
 
 export default function MyFiles() {
