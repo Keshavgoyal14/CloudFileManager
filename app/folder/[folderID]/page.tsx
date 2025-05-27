@@ -16,13 +16,12 @@ function FolderId() {
     const { folderID } = useParams();
     const [files, setFiles] = useState([])
     const [isfolders, setFolders] = useState([])
-    const [loading, setLoading] = useState(false);
     const { data: session } = useSession();
     const searchParams = useSearchParams();
     const { parentFolderId, setparentFolderId} = useContext(ParentFolderContext)
     const foldername = searchParams.get('folder');
     const handleFetchFolders = async () => {
-        setLoading(true);
+       
         setFolders([]);
         if (session?.user?.email) {
             const q = query(collection(db, "Folders"),
@@ -34,11 +33,8 @@ function FolderId() {
             console.log(querySnapshot)
             querySnapshot.forEach((doc) => {
                 setFolders((prev) => [...prev, { id: doc.id, ...doc.data() }]);
-               
-            });
-            
+            });   
         }
-        setLoading(false);
     }
     useEffect(() => {
         handleFetchFolders();
@@ -49,7 +45,7 @@ function FolderId() {
     }, [folderID])
 
     const handleFetchFiles = async () => {
-        setLoading(true);
+     
         setFiles([]);
         if (session?.user.email) {
             const q = query(collection(db, "Files"), where("Email", "==", session?.user.email), where("parentFolderId", "==", folderID));
@@ -60,7 +56,7 @@ function FolderId() {
                 setFiles((prev) => [...prev, { id: doc.id, ...doc.data() }]);
             });
         }
-        setLoading(false);
+       
     }
     useEffect(() => {
         setparentFolderId(folderID);
