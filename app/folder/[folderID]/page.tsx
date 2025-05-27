@@ -88,7 +88,7 @@ router.back();
                     <h2 className='text-sm text-blue-400 hover:underline'>View All</h2></div>
                 <div className='grid grid-cols-1 sm:grid-cols-2 l md:grid-cols-4 gap-2'>{isfolders?.map((item) => {
                     return (
-                        <FolderItem item={item} />
+                        <FolderItem key={item.id} item={item} />
                     )
                 })}</div>
             </div>
