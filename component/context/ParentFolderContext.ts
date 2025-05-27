@@ -1,9 +1,9 @@
 'use client'
-import { createContext } from 'react';
+import { createContext, Dispatch, SetStateAction } from 'react';
 
 export interface ParentFolderContextType {
   parentFolderId: string | undefined;
-    setparentFolderId: ()=>{};
+  setparentFolderId: Dispatch<SetStateAction<string | undefined>>;
 }
 
 export const ParentFolderContext = createContext<ParentFolderContextType | null>(null);
