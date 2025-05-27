@@ -25,6 +25,7 @@ type FileType = {
 function FolderId() {
   const router =useRouter()
     const { folderID } = useParams();
+    const [search, setsearch] = useState("");
    const [files, setFiles] = useState<FileType[]>([]);
   const [isfolders, setFolders] = useState<FolderType[]>([]);
     const { data: session } = useSession();
@@ -106,7 +107,7 @@ router.back();
 }
     return (
         <div>
-            <Searchbar />
+            <Searchbar setsearch={setsearch}/>
             <div className='m-5 flex justify-between'>
                 <h2 className='text-2xl font-medium'>{foldername}</h2>
                 <button onClick={()=>handleDelete()} className='text-red-500 mr-3'><FaRegTrashAlt size={18}/></button></div>
@@ -119,7 +120,7 @@ router.back();
                     )
                 })}</div>
             </div>
-               <Fileitem files ={files}/>
+               <Fileitem files ={files} setFiles={setFiles} isTrash={true}/>
         </div>)
 }
 
