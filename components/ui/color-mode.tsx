@@ -42,13 +42,9 @@ export function ColorModeIcon() {
   const { colorMode } = useColorMode()
   return colorMode === "dark" ? <LuMoon /> : <LuSun />
 }
-
-interface ColorModeButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
-
 export const ColorModeButton = React.forwardRef<
   HTMLButtonElement,
-  ColorModeButtonProps
+  React.ButtonHTMLAttributes<HTMLButtonElement>
 >(function ColorModeButton(props, ref) {
   const { toggleColorMode } = useColorMode()
   return (
