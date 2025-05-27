@@ -14,12 +14,12 @@ import { useRouter } from 'next/navigation';
 
 type FolderType = {
   id: string;
-  [key: string]: any;
+  name: string;
 };
 
 type FileType = {
   id: string;
-  [key: string]: any;
+  Filename: string;
 };
 
 function FolderId() {
