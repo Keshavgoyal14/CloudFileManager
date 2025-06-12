@@ -48,6 +48,10 @@
 
 ## 🖼️ Screenshots
 
+## 🌐 Environment Variables
+
+Create a `.env.local` file in the root directory of your project and add the following:
+
 ```env
 # Google OAuth for authentication
 GOOGLE_CLIENT_ID=your_google_client_id
@@ -60,6 +64,18 @@ UPLOADTHING_TOKEN=your_uploadthing_token
 
 # NextAuth secret
 NEXTAUTH_SECRET=your_nextauth_secret
+
+Clone the Repository
+git clone https://github.com/your-username/your-project-name.git
+cd your-project-name
+Install Dependencies
+npm install
+# or
+yarn install
+Run the Development Server
+npm run dev
+# or
+yarn dev
 
 ## 🤝 Contributing
 
