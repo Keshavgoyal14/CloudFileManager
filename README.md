@@ -47,7 +47,7 @@
 ---
 
 ## 🖼️ Screenshots
-![image](https://github.com/user-attachments/assets/13aefeb0-3a58-49a2-8c86-fcc43c0a62ee)
+![image](https://github.com/user-attachments/assets/05780f65-ace8-4785-90ae-1ae90c820380)
 
 
 ## 🌐 Environment Variables
