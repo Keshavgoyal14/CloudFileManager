@@ -48,7 +48,18 @@
 
 ## 🖼️ Screenshots
 
+```env
+# Google OAuth for authentication
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
 
+# UploadThing configuration
+UPLOADTHING_APP_ID=your_uploadthing_app_id
+UPLOADTHING_SECRET=your_uploadthing_secret
+UPLOADTHING_TOKEN=your_uploadthing_token
+
+# NextAuth secret
+NEXTAUTH_SECRET=your_nextauth_secret
 
 ## 🤝 Contributing
 
