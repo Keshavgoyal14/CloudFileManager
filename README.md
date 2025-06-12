@@ -64,19 +64,24 @@ UPLOADTHING_TOKEN=your_uploadthing_token
 
 # NextAuth secret
 NEXTAUTH_SECRET=your_nextauth_secret
-
-Clone the Repository
+```
+## Clone the Repository
+```
 git clone https://github.com/your-username/your-project-name.git
 cd your-project-name
-Install Dependencies
+```
+## Install Dependencies
+```
 npm install
 # or
 yarn install
-Run the Development Server
+```
+## Run the Development Server
+```
 npm run dev
 # or
 yarn dev
-
+```
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!  
