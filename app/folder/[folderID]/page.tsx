@@ -11,18 +11,35 @@ import Fileitem from "../../../component/Fileitem";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+
+type FolderType = {
+  id: string;
+  name: string;
+};
+
+type FileType = {
+  id: string;
+  Filename: string;
+};
+
 function FolderId() {
   const router =useRouter()
     const { folderID } = useParams();
-    const [files, setFiles] = useState([])
-    const [isfolders, setFolders] = useState([])
-    const [loading, setLoading] = useState(false);
+    const [search, setsearch] = useState("");
+   const [files, setFiles] = useState<FileType[]>([]);
+  const [isfolders, setFolders] = useState<FolderType[]>([]);
     const { data: session } = useSession();
     const searchParams = useSearchParams();
-    const { parentFolderId, setparentFolderId} = useContext(ParentFolderContext)
+    const context = useContext(ParentFolderContext);
+
+if (!context) {
+  throw new Error("useContext must be used within a ParentFolderProvider");
+}
+
+const { setparentFolderId } = context;
     const foldername = searchParams.get('folder');
     const handleFetchFolders = async () => {
-        setLoading(true);
+       
         setFolders([]);
         if (session?.user?.email) {
             const q = query(collection(db, "Folders"),
@@ -32,38 +49,45 @@ function FolderId() {
             const querySnapshot = await getDocs(q);
         
             console.log(querySnapshot)
-            querySnapshot.forEach((doc) => {
-                setFolders((prev) => [...prev, { id: doc.id, ...doc.data() }]);
-               
-            });
-            
+       querySnapshot.forEach((doc) => {
+  const data = doc.data() as FolderType;
+  setFolders((prev) => [...prev, { ...data, id: doc.id }]);
+});
         }
-        setLoading(false);
     }
     useEffect(() => {
         handleFetchFolders();
     }, [session])
 
-    useEffect(() => {
-        setparentFolderId(folderID)
-    }, [folderID])
+  useEffect(() => {
+  if (typeof folderID === "string") {
+    setparentFolderId(folderID);
+  } else {
+    setparentFolderId(undefined);
+  }
+}, [folderID]);
 
     const handleFetchFiles = async () => {
-        setLoading(true);
+     
         setFiles([]);
-        if (session?.user.email) {
+        if (session?.user?.email) {
             const q = query(collection(db, "Files"), where("Email", "==", session?.user.email), where("parentFolderId", "==", folderID));
 
             const querySnapshot = await getDocs(q);
             console.log("file", querySnapshot);
             querySnapshot.forEach((doc) => {
-                setFiles((prev) => [...prev, { id: doc.id, ...doc.data() }]);
-            });
+  const data = doc.data() as FileType;
+  setFiles((prev) => [...prev, { ...data, id: doc.id }]);
+});
         }
-        setLoading(false);
+       
     }
     useEffect(() => {
-        setparentFolderId(folderID);
+         if (typeof folderID === "string") {
+    setparentFolderId(folderID);
+  } else {
+    setparentFolderId(undefined);
+  }
         handleFetchFiles();
     }, [session])
 
@@ -81,9 +105,10 @@ await fetch("/api/delete-folder-uploadthing", {
 toast.success("Folder Deleted Sucessfully")
 router.back();
 }
+const filteredFiles = files.filter(file => file.Filename.toLowerCase().includes(search.toLowerCase()));
     return (
         <div>
-            <Searchbar />
+            <Searchbar setsearch={setsearch}/>
             <div className='m-5 flex justify-between'>
                 <h2 className='text-2xl font-medium'>{foldername}</h2>
                 <button onClick={()=>handleDelete()} className='text-red-500 mr-3'><FaRegTrashAlt size={18}/></button></div>
@@ -92,11 +117,11 @@ router.back();
                     <h2 className='text-sm text-blue-400 hover:underline'>View All</h2></div>
                 <div className='grid grid-cols-1 sm:grid-cols-2 l md:grid-cols-4 gap-2'>{isfolders?.map((item) => {
                     return (
-                        <FolderItem item={item} />
+                        <FolderItem key={item.id} item={item} />
                     )
                 })}</div>
             </div>
-               <Fileitem files ={files}/>
+               <Fileitem files ={filteredFiles} setFiles={setFiles} isTrash={true}/>
         </div>)
 }
 

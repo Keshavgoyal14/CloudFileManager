@@ -1,7 +1,6 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -18,7 +17,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { BsThreeDotsVertical } from "react-icons/bs";
-import {useEffect, useState } from "react";
+
 
 function Fileitem({files,setFiles,isTrash}) {
 
@@ -98,9 +97,6 @@ const handleDelete=async(fileKey,docId)=>{
     </TableRow>)})}
   </TableBody>
 </Table>
-
-
-       
     </div>
   
     </div>

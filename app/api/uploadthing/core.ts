@@ -8,7 +8,7 @@ export const ourFileRouter = {
      blob: { maxFileSize: "4MB",maxFileCount: 1,},
     video: { maxFileSize: "8MB", maxFileCount: 1 }
   })
-    .onUploadComplete(async ({ metadata, file }) => {
+    .onUploadComplete(async ({ file }) => {
       console.log(" Upload complete");
       console.log(" File URL:", file.url);
       return { uploadedBy: "anon", url: file.url };

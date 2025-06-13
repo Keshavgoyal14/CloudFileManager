@@ -23,7 +23,7 @@ import { ParentFolderContext } from "./context/ParentFolderContext";
  import { Button } from "@/components/ui/button"
  import {CreateNewFolder} from './CreateNewFolder';
   import { Fileupload } from '../component/Fileupload';
-import { signOut ,signIn ,useSession} from 'next-auth/react';
+import { signOut ,useSession} from 'next-auth/react';
 const SideNavbar = () => {
     const { data: session, status } = useSession();
   const {currentParentFolderId} = useContext(ParentFolderContext)

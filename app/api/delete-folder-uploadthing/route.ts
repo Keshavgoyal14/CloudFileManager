@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { UTApi } from "uploadthing/server";
 import { db } from "../../../firebaseConfig";
 const utapi = new UTApi();
-async function deleteFolderTree(userEmail,folderId) {
+async function deleteFolderTree(userEmail:string,folderId:string) {
   try {
     // Delete all files in this folder
     const filesQ = query(
